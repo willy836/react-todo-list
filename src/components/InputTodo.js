@@ -21,12 +21,14 @@ class InputTodo extends React.Component {
     }
   };
 
-  //   handleChange = (e) => {
-  //     this.setState({ todo: e.target.value });
-  //   };
-
   handleChange = (e) => {
-    this.setState((prevState) => ({ todo: e.target.value }));
+    this.setState({ todo: e.target.value });
+  };
+
+  handleDelete = (id) => {
+    this.setState((prevState) => ({
+      todos: prevState.todos.filter((item) => item.id !== id),
+    }));
   };
 
   render() {
@@ -42,7 +44,16 @@ class InputTodo extends React.Component {
         </form>
         <div>
           {this.state.todos.map((todo) => {
-            return <p key={todo.id}>{todo.text}</p>;
+            return (
+              <ul>
+                <li key={todo.id}>
+                  {todo.text}
+                  <button onClick={() => this.handleDelete(todo.id)}>
+                    delete
+                  </button>
+                </li>
+              </ul>
+            );
           })}
         </div>
       </div>
